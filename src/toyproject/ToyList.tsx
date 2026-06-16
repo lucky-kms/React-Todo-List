@@ -6,6 +6,9 @@ import List from '@mui/material/List';
 import TypographyText from '../components/Typography';
 import Checkboxes from '../components/Checkboxs';
 import StackLayout from '../components/StackLayout';
+import BasicTextFields from '../components/BasicTextFields.tsx';
+import BasicSelect from '../components/BasicSelect.tsx';
+import { Box } from '@mui/material';
 
 // date yyyy-mm-dd 함수
 const getDateFn = () => {
@@ -67,16 +70,29 @@ export default function ToyList() {
     return (
         <div>
             <h1>To Do List</h1>
+
             <form onSubmit={submitTodo}>
-                <input name="username" value={username} onChange={(e) => inputVal(e)}/>
-                <select name="level" value={level} onChange={(e) => inputVal(e)}>
-                    <option value="1">쉬움</option>
-                    <option value="2">보통</option>
-                    <option value="3">중요</option>
-                </select> 
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+                    <BasicTextFields
+                        nameText={"username"}    
+                        valueText={username}   
+                        onChange={(e) => inputVal(e)}     
+                    />
+                    {/* <input 
+                        name={"username"} 
+                        value={username} 
+                        onChange={(e) => inputVal(e)}
+                    /> */}
+                    
+                    <BasicSelect nameSelect={"level"} nameValue={level} onChange={(e) => inputVal(e)} />
+                    {/* <select name="level" value={level} onChange={(e) => inputVal(e)}>
+                        <option value="1">쉬움</option>
+                        <option value="2">보통</option>
+                        <option value="3">중요</option>
+                    </select>  */}
 
-                <button type="submit">저장</button>
-
+                    <button type="submit">저장</button>
+                </Box>
                 <List sx={{ display: 'flex', flexWrap:'wrap', width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
                     {
                         todo.map((item) => (
