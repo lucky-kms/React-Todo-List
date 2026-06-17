@@ -9,21 +9,21 @@ export default function ToytodoContextProvider ({children} : {children : React.R
         {
             id: 1,
             username: "오늘의 할일, 일자리구하기",
-            level: "쉬움",
+            level: "1",
             setdate: "2026-09-06",
             done: false,
         },
         {
             id: 2,
             username: "오늘의 할일, 클라이밍 하기",
-            level: "쉬움",
+            level: "2",
             setdate: "2026-09-07",
             done: false,
         },
         {
             id: 3,
             username: "오늘의 할일, 공부하기",
-            level: "어려움",
+            level: "3",
             setdate: "2026-09-08",
             done: false,
         }
@@ -31,7 +31,7 @@ export default function ToytodoContextProvider ({children} : {children : React.R
 
     const addTodo = ({...state}) => {
             const {username, level, setdate} = state;
-        
+
             setTodo(prev => {
                 const nextId =  prev.length > 0 ? Math.max(...prev.map((item) => item.id)) + 1 : 1;
 

@@ -10,6 +10,7 @@ import BasicTextFields from '../components/BasicTextFields.tsx';
 import BasicSelect from '../components/BasicSelect.tsx';
 import { Box } from '@mui/material';
 
+
 // date yyyy-mm-dd 함수
 const getDateFn = () => {
     const toDay = new Date();
@@ -31,6 +32,12 @@ export default function ToyList() {
     });
 
     const {username, level, setdate} = state;
+
+    const levelText = {
+        "1" : "쉬움",
+        "2" : "보통",
+        "3" : "어려움",
+    }
 
     const {todo, addTodo, removeTodo, toggleTodo} = ToyTodoUseContext();
 
@@ -72,7 +79,7 @@ export default function ToyList() {
             <h1>To Do List</h1>
 
             <form onSubmit={submitTodo}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: "10px"}}>
                     <BasicTextFields
                         nameText={"username"}    
                         valueText={username}   
@@ -84,14 +91,14 @@ export default function ToyList() {
                         onChange={(e) => inputVal(e)}
                     /> */}
                     
-                    <BasicSelect nameSelect={"level"} nameValue={level} onChange={(e) => inputVal(e)} />
+                    <BasicSelect sx={{ width: "120px"}} nameSelect={"level"} nameValue={level} onChange={(e) => inputVal(e)} />
                     {/* <select name="level" value={level} onChange={(e) => inputVal(e)}>
                         <option value="1">쉬움</option>
                         <option value="2">보통</option>
                         <option value="3">중요</option>
                     </select>  */}
 
-                    <button type="submit">저장</button>
+                    <Btn typeName="submit" sx={{minWidth: "100px", height: "58.8px"}} childName="저장"/>
                 </Box>
                 <List sx={{ display: 'flex', flexWrap:'wrap', width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
                     {
@@ -117,7 +124,7 @@ export default function ToyList() {
                                                 }}
                                             >
                                                 <span>{item.username}</span> 
-                                                <span>{item.level}</span> 
+                                                <span>{levelText[item.level as keyof typeof levelText]}</span> 
                                                 <span>{item.setdate}</span>
                                             </span>
                                         </TypographyText>
@@ -128,6 +135,7 @@ export default function ToyList() {
                                 
                                 <Btn 
                                     childName="삭제"
+                                    iconName="delType"
                                     sx={{color: 'error.main', borderColor: 'error.main', }}
                                     onClick={() => removeTodo(item.id)}  
                                 />
@@ -142,8 +150,8 @@ export default function ToyList() {
                     flexOptionSm={'row'}
                 >
                     <span>완료 : 0</span>
-                    <Btn childName="선택삭제" onClick={() => console.log("선택삭제")} />
-                    <Btn childName="전체완료" onClick={() => console.log("전체완료")} />
+                    <Btn childName="선택삭제" iconName="delType" onClick={() => console.log("선택삭제")} />
+                    <Btn childName="전체완료" iconName="chkType" onClick={() => console.log("전체완료")} />
                 </StackLayout>
 
             </form>
