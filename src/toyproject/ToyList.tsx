@@ -9,6 +9,7 @@ import StackLayout from '../components/StackLayout';
 import BasicTextFields from '../components/BasicTextFields.tsx';
 import BasicSelect from '../components/BasicSelect.tsx';
 import { Box } from '@mui/material';
+import type { todos5 } from './ToyType.ts';
 
 
 // date yyyy-mm-dd 함수
@@ -39,7 +40,7 @@ export default function ToyList() {
         "3" : "어려움",
     }
 
-    const {todo, addTodo, removeTodo, toggleTodo} = ToyTodoUseContext();
+    const {todo, addTodo, removeTodo, toggleTodo, removeCheckedTodo, allCheckTodo} = ToyTodoUseContext();
 
     const submitTodo = (e: SubmitEvent<HTMLFormElement>) => {
         
@@ -74,11 +75,16 @@ export default function ToyList() {
     //     })
     // }
 
+    const countNum = (items : todos5[]) => {
+        return items.filter(item => item.done === true).length;
+    }
+
     return (
         <div>
             <h1>To Do List</h1>
 
             <form onSubmit={submitTodo}>
+                {/* [S] 입력 폼 */}
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: "10px"}}>
                     <BasicTextFields
                         nameText={"username"}    
@@ -100,58 +106,68 @@ export default function ToyList() {
 
                     <Btn typeName="submit" sx={{minWidth: "100px", height: "58.8px"}} childName="저장"/>
                 </Box>
+                {/* [E] 입력 폼 */}
+
+                {/* [S] 목록 */}
                 <List sx={{ display: 'flex', flexWrap:'wrap', width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
                     {
                         todo.map((item) => (
                             <>
-                            <Checkboxes />
-                            <ListLine
-                                onClick={() => toggleTodo(item.id)}
-                                sx={{cursor: 'pointer', textDecoration: item.done? 'line-through' : 'none'}}
-                                key={item.id}
-                                primary={item.username}
-                                secondary={
-                                    <>
-                                        <TypographyText
-                                            text="div"
-                                            variantText="body2"
-                                            sx={{ color: 'text.primary', display: 'inline' }}
-                                        >
-                                            <span 
-                                                onClick={() => toggleTodo(item.id)} 
-                                                style={{cursor:"pointer", 
-                                                    textDecoration: item.done? "line-through": "none",
-                                                }}
-                                            >
-                                                <span>{item.username}</span> 
-                                                <span>{levelText[item.level as keyof typeof levelText]}</span> 
-                                                <span>{item.setdate}</span>
-                                            </span>
-                                        </TypographyText>
-                                        
-                                    </>
-                                }
-                            >
-                                
-                                <Btn 
-                                    childName="삭제"
-                                    iconName="delType"
-                                    sx={{color: 'error.main', borderColor: 'error.main', }}
-                                    onClick={() => removeTodo(item.id)}  
+                                <Checkboxes 
+                                    onClick={() => toggleTodo(item.id)} 
+                                    checked={item.done? true : false} 
                                 />
-                            </ListLine>
-                        </>
+                                
+                                <ListLine
+                                    onClick={() => toggleTodo(item.id)}
+                                    sx={{cursor: 'pointer', textDecoration: item.done? 'line-through' : 'none'}}
+                                    key={item.id}
+                                    primary={item.username}
+                                    secondary={
+                                        <>
+                                            <TypographyText
+                                                text="div"
+                                                variantText="body2"
+                                                sx={{ color: 'text.primary', display: 'inline' }}
+                                            >
+                                                <span 
+                                                    onClick={() => toggleTodo(item.id)} 
+                                                    style={{cursor:"pointer", 
+                                                        textDecoration: item.done? "line-through": "none",
+                                                    }}
+                                                >
+                                                    <span>{item.username}</span> 
+                                                    <span>{levelText[item.level as keyof typeof levelText]}</span> 
+                                                    <span>{item.setdate}</span>
+                                                </span>
+                                            </TypographyText>
+                                            
+                                        </>
+                                    }
+                                >
+                                    
+                                    <Btn 
+                                        childName="삭제"
+                                        iconName="delType"
+                                        sx={{color: 'error.main', borderColor: 'error.main', }}
+                                        onClick={() => removeTodo(item.id)}  
+                                    />
+                                </ListLine>
+                            </>
                         ))
                     }
                 </List>
+
+                {/* [E] 목록 */}
+
                 {/*  flexOption : row, column */}
                 <StackLayout
                     flexOptionXs={'column'}
                     flexOptionSm={'row'}
                 >
-                    <span>완료 : 0</span>
-                    <Btn childName="선택삭제" iconName="delType" onClick={() => console.log("선택삭제")} />
-                    <Btn childName="전체완료" iconName="chkType" onClick={() => console.log("전체완료")} />
+                    <span>완료 : { countNum(todo) }</span>
+                    <Btn childName="선택삭제" iconName="delType" onClick={removeCheckedTodo} />
+                    <Btn childName="전체완료" iconName="chkType" onClick={allCheckTodo} />
                 </StackLayout>
 
             </form>

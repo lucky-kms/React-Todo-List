@@ -11,7 +11,7 @@ export default function ToytodoContextProvider ({children} : {children : React.R
             username: "오늘의 할일, 일자리구하기",
             level: "1",
             setdate: "2026-09-06",
-            done: false,
+            done: true,
         },
         {
             id: 2,
@@ -57,8 +57,30 @@ export default function ToytodoContextProvider ({children} : {children : React.R
 
     const toggleTodo = (id: number) => {
         
-        setTodo(prev => prev.map((item) => item.id === id? {...item, done: !item.done} : item));
+        setTodo(prev => prev.map((item) => 
+            item.id === id? {...item, done: !item.done} 
+            : 
+            item
+        ));
         
+    }
+
+    // 선택삭제
+    const removeCheckedTodo = () => {
+        setTodo(prev => prev.filter(item => !item.done));
+    }
+
+    // 전체완료
+    const allCheckTodo = () => {
+
+            setTodo(prev => {
+                const isAllDone = prev.every(item => item.done);
+
+                return prev.map(item => ({
+                    ...item,
+                    done: !isAllDone,
+                }))
+            })
     }
 
     return (
@@ -68,6 +90,8 @@ export default function ToytodoContextProvider ({children} : {children : React.R
                 addTodo,
                 removeTodo,
                 toggleTodo,
+                removeCheckedTodo,
+                allCheckTodo,
             }}
         >
             { children }
