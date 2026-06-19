@@ -1,33 +1,12 @@
 import { useState } from 'react';
 import { TodosContext, type todos5 } from './ToyType';
+import { todoList } from '../assets/datas/todoList';
 
 
 export default function ToytodoContextProvider ({children} : {children : React.ReactNode}) {
     
     
-    const [todo5, setTodo] = useState<todos5[]>([
-        {
-            id: 1,
-            username: "오늘의 할일, 일자리구하기",
-            level: "1",
-            setdate: "2026-09-06",
-            done: true,
-        },
-        {
-            id: 2,
-            username: "오늘의 할일, 클라이밍 하기",
-            level: "2",
-            setdate: "2026-09-07",
-            done: false,
-        },
-        {
-            id: 3,
-            username: "오늘의 할일, 공부하기",
-            level: "3",
-            setdate: "2026-09-08",
-            done: false,
-        }
-    ]);
+    const [todo5, setTodo] = useState<todos5[]>(todoList);
 
     const addTodo = ({...state}) => {
             const {username, level, setdate} = state;

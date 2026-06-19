@@ -80,7 +80,7 @@ export default function ToyList() {
     }
 
     return (
-        <div>
+        <div style={{padding: "1rem"}}>
             <h1>To Do List</h1>
 
             <form onSubmit={submitTodo}>
@@ -88,7 +88,8 @@ export default function ToyList() {
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: "10px"}}>
                     <BasicTextFields
                         nameText={"username"}    
-                        valueText={username}   
+                        valueText={username}
+                        sx={{xs: 2, sm: 1, width: '7.9rem' }}  
                         onChange={(e) => inputVal(e)}     
                     />
                     {/* <input 
@@ -97,22 +98,22 @@ export default function ToyList() {
                         onChange={(e) => inputVal(e)}
                     /> */}
                     
-                    <BasicSelect sx={{ width: "120px"}} nameSelect={"level"} nameValue={level} onChange={(e) => inputVal(e)} />
+                    <BasicSelect sx={{ sm :{ width: "7.5rem"}}} nameSelect={"level"} nameValue={level} onChange={(e) => inputVal(e)} />
                     {/* <select name="level" value={level} onChange={(e) => inputVal(e)}>
                         <option value="1">쉬움</option>
                         <option value="2">보통</option>
                         <option value="3">중요</option>
                     </select>  */}
 
-                    <Btn typeName="submit" sx={{minWidth: "100px", height: "58.8px"}} childName="저장"/>
+                    <Btn typeName="submit" sx={{minWidth: "5rem", height: "58.8px"}} childName="저장"/>
                 </Box>
                 {/* [E] 입력 폼 */}
 
                 {/* [S] 목록 */}
-                <List sx={{ display: 'flex', flexWrap:'wrap', width: '100%', maxWidth: "100%", bgcolor: 'background.paper' }}>
+                <List >
                     {
                         todo.map((item) => (
-                            <>
+                            <div style={{ display: 'flex', flexWrap:'nowrap', width: '100%', maxWidth: "100%", backgroundColor: 'background.paper' }}>
                                 <Checkboxes 
                                     onClick={() => toggleTodo(item.id)} 
                                     checked={item.done? true : false} 
@@ -153,7 +154,7 @@ export default function ToyList() {
                                         onClick={() => removeTodo(item.id)}  
                                     />
                                 </ListLine>
-                            </>
+                            </div>
                         ))
                     }
                 </List>
@@ -164,8 +165,9 @@ export default function ToyList() {
                 <StackLayout
                     flexOptionXs={'column'}
                     flexOptionSm={'row'}
+                    sx={{justifyContent:'flex-end'}}
                 >
-                    <span>완료 : { countNum(todo) }</span>
+                    <span style={{marginRight:"auto", padding: "0 0.5rem"}}>완료 : { countNum(todo) }</span>
                     <Btn childName="선택삭제" iconName="delType" onClick={removeCheckedTodo} />
                     <Btn childName="전체완료" iconName="chkType" onClick={allCheckTodo} />
                 </StackLayout>

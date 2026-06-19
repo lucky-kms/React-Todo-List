@@ -1,4 +1,6 @@
 // import Paper from '@mui/material/Paper';
+import type { Theme } from '@emotion/react';
+import type { SxProps } from '@mui/material';
 import Stack from '@mui/material/Stack';
 // import { styled } from '@mui/material/styles';
 // import type { column, row } from '@mui/material';
@@ -12,6 +14,7 @@ type FlexType =
 type StackLayoutType = {
     flexOptionXs? : FlexType;
     flexOptionSm? : FlexType;
+    sx?: SxProps<Theme>;
     children : React.ReactNode;
 }
 
@@ -27,12 +30,13 @@ type StackLayoutType = {
 // }));
 
 
-export default function StackLayout({flexOptionXs, flexOptionSm, children} : StackLayoutType) {
+export default function StackLayout({flexOptionXs, flexOptionSm, sx, children} : StackLayoutType) {
     return (
         <div>
             <Stack
                 direction={{ xs: flexOptionXs ?? 'column', sm: flexOptionSm ?? 'row' }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
+                sx={sx}
             >
                 { children }
             </Stack>
