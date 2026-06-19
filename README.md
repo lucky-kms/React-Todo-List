@@ -16,8 +16,6 @@ React와 MUI 기반으로 작업한 TODO-LIST 입니다.
 
 **진행예쩡**
 입력내용 재수정 필요시 구현
-내용 상세,
-UI/UX 디자인
 
 # Tech
 React, contextAPI, MUI, style-components
