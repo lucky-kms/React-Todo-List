@@ -14,8 +14,6 @@ React와 MUI 기반으로 작업한 TODO-LIST 입니다.
 - todo list 할일 입력 추가, 수정, 삭제 기능 구현
 - duck 패턴 디자인을, type, context 함수, context전달, view 파일 로 구분지어 관리
 
-**진행예쩡**
-입력내용 재수정 필요시 구현
 
 # Tech
 React, contextAPI, MUI, style-components
